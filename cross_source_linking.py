@@ -2,9 +2,9 @@ import os
 import pandas as pd
 
 def load_data():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    profiles_path = os.path.join(base_dir, 'data', 'student-or-staff-profiles.csv')
-    card_swipes_path = os.path.join(base_dir, 'data', 'campus_card_swipes.csv')
+    base_dir = os.getcwd()
+    profiles_path = os.path.join(base_dir, 'student-or-staff-profiles.csv')
+    card_swipes_path = os.path.join(base_dir, 'campus_card_swipes.csv')
 
     profiles = pd.read_csv(profiles_path)
     card_swipes = pd.read_csv(card_swipes_path)
@@ -19,9 +19,9 @@ def join_card_swipes(entity_table, card_swipes):
     return pd.merge(card_swipes, entity_table, on='card_id', how='left')
 
 def load_cctv_and_faces():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    cctv_path = os.path.join(base_dir, 'data', 'cctv_frames.csv')
-    faces_path = os.path.join(base_dir, 'data', 'face_embeddings.csv')
+    base_dir = os.getcwd()
+    cctv_path = os.path.join(base_dir, 'cctv_frames.csv')
+    faces_path = os.path.join(base_dir, 'face_embeddings.csv')
     cctv = pd.read_csv(cctv_path)
     faces = pd.read_csv(faces_path)
     return cctv, faces
@@ -34,32 +34,32 @@ def join_with_entities(cctv_faces, entity_table):
     return pd.merge(cctv_faces, entity_table, on='face_id', how='left')
 
 def load_wifi_logs():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    wifi_path = os.path.join(base_dir, 'data', 'wifi_associations_logs.csv')
+    base_dir = os.getcwd()
+    wifi_path = os.path.join(base_dir, 'wifi_associations_logs.csv')
     return pd.read_csv(wifi_path)
 
 def join_wifi_logs(wifi_logs, entity_table):
     return pd.merge(wifi_logs, entity_table, on='device_hash', how='left')
 
 def load_lab_bookings():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    lab_path = os.path.join(base_dir, 'data', 'lab_bookings.csv')
+    base_dir = os.getcwd()
+    lab_path = os.path.join(base_dir, 'lab_bookings.csv')
     return pd.read_csv(lab_path)
 
 def join_lab_bookings(lab_bookings, entity_table):
     return pd.merge(lab_bookings, entity_table, on='entity_id', how='left')
 
 def load_text_notes():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    notes_path = os.path.join(base_dir, 'data', 'free_text_notes.csv')
+    base_dir = os.getcwd()
+    notes_path = os.path.join(base_dir, 'free_text_notes.csv')
     return pd.read_csv(notes_path)
 
 def join_text_notes(text_notes, entity_table):
     return pd.merge(text_notes, entity_table, on='entity_id', how='left')
 
 def load_library_checkouts():
-    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    library_path = os.path.join(base_dir, 'data', 'library_checkouts.csv')
+    base_dir = os.getcwd()
+    library_path = os.path.join(base_dir, 'library_checkouts.csv')
     return pd.read_csv(library_path)
 
 def join_library_checkouts(library_checkouts, entity_table):
