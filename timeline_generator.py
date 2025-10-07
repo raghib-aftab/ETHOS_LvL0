@@ -6,13 +6,13 @@ from collections import defaultdict
 def load_linked_sources():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-    card_swipes = pd.read_csv(os.path.join(base_dir, 'data', 'campus_card_swipes.csv'))
-    cctv = pd.read_csv(os.path.join(base_dir, 'data', 'cctv_frames.csv'))
-    wifi_logs = pd.read_csv(os.path.join(base_dir, 'data', 'wifi_associations_logs.csv'))
-    lab_bookings = pd.read_csv(os.path.join(base_dir, 'data', 'lab_bookings.csv'))
-    text_notes = pd.read_csv(os.path.join(base_dir, 'data', 'free_text_notes.csv'))
-    library_checkouts = pd.read_csv(os.path.join(base_dir, 'data', 'library_checkouts.csv'))
-    profiles = pd.read_csv(os.path.join(base_dir, 'data', 'student-or-staff-profiles.csv'))
+    card_swipes = pd.read_csv(os.path.join(base_dir, 'campus_card_swipes.csv'))
+    cctv = pd.read_csv(os.path.join(base_dir, 'cctv_frames.csv'))
+    wifi_logs = pd.read_csv(os.path.join(base_dir, 'wifi_associations_logs.csv'))
+    lab_bookings = pd.read_csv(os.path.join(base_dir, 'lab_bookings.csv'))
+    text_notes = pd.read_csv(os.path.join(base_dir, 'free_text_notes.csv'))
+    library_checkouts = pd.read_csv(os.path.join(base_dir, 'library_checkouts.csv'))
+    profiles = pd.read_csv(os.path.join(base_dir, 'student-or-staff-profiles.csv'))
 
     profiles['student_or_staff_id'] = profiles['student_id'].fillna(profiles['staff_id'])
     keys = ['entity_id', 'student_or_staff_id', 'card_id', 'face_id', 'device_hash']
