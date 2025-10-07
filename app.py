@@ -17,7 +17,7 @@ def main():
         if not entity_id:
             st.error("Please enter an entity_id")
             return
-        
+
         event_types = [et.strip() for et in event_types_input.split(",")] if event_types_input else None
 
         timeline, event_counts, inactivity_flag, predicted_next, anomalies = generate_timeline(
