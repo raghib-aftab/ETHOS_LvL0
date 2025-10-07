@@ -1,84 +1,98 @@
 import streamlit as st
-from timeline_generator import (
-    load_linked_sources,
-    generate_timeline,
-    export_timeline,
-    visualize_timeline,
-)
-from predictive_monitoring import (
-    prepare_training_data,
-    train_predictive_model,
-    predict_next_location,
-    explain_prediction,
-)
+from timeline_generator import (load_linked_sources, cross_source_linking, generate_timeline, visualize_timeline)
+from datetime import date
+import re
+import pandas as pd
+
+def validate_entity_id(eid):
+    return bool(re.match(r"^E\d+$", eid))
 
 def main():
-    st.title("Entity Activity Timeline")
+    st.title("Entity Activity Timeline Dashboard")
 
-    # Load datasets
-    (card_swipes, cctv, wifi_logs, lab_bookings,
-     text_notes, library_checkouts, entity_table) = load_linked_sources()
+    # Load all data on app start
+    card_swipes, cctv, wifi_logs, lab_bookings, text_notes, library_checkouts, entity_table_raw = load_linked_sources()
+    linked_data = cross_source_linking()
 
-    entity_id = st.text_input("Enter entity_id")
-    start_date = st.date_input("Start date", value=None)
-    end_date = st.date_input("End date", value=None)
-    event_types_input = st.text_input("Event types (comma-separated, optional)")
+    profiles = entity_table_raw.copy()
+    profiles['student_or_staff_id'] = profiles['student_id'].fillna(profiles['staff_id'])
+    entity_table = profiles[['entity_id', 'student_or_staff_id']].drop_duplicates()
+    entity_table['entity_id'] = entity_table['entity_id'].astype(str)
 
-    if st.button("Generate Timeline"):
+    col1, col2, col3 = st.columns([1, 2, 1])
+    with col2:
+        entity_id = st.text_input("Enter Entity ID", help="E.g., E100000")
+        start_date = st.date_input("Start date (optional)", value=None)
+        end_date = st.date_input("End date (optional)", value=None)
+
+        EVENT_TYPES = ["card_swipe", "cctv_sighting", "wifi_log", "lab_booking", "text_note", "library_checkout"]
+        EVENT_TYPES_ALL = ["All"] + EVENT_TYPES
+        selected_event_types = st.multiselect("Select Event Types", EVENT_TYPES_ALL, default=["All"])
+
+        generate_btn = st.button("Generate Timeline")
+
+    if generate_btn:
         if not entity_id:
-            st.error("Please enter an entity_id")
+            st.error("Entity ID is required!")
+            return
+        if not validate_entity_id(entity_id):
+            st.error("Invalid Entity ID format. Must start with 'E' followed by digits.")
             return
 
-        event_types = [et.strip() for et in event_types_input.split(",")] if event_types_input else None
+        sd = start_date.isoformat() if isinstance(start_date, date) else None
+        ed = end_date.isoformat() if isinstance(end_date, date) else None
+        if "All" in selected_event_types:
+            event_types_filter = EVENT_TYPES
+        else:
+            event_types_filter = selected_event_types
 
-        timeline, event_counts, inactivity_flag, _, anomalies = generate_timeline(
-            entity_id, card_swipes, cctv, wifi_logs, lab_bookings,
-            text_notes, library_checkouts, entity_table,
-            start_date, end_date, event_types
+        timeline, event_counts, inactivity_flag, predicted_next, anomalies = generate_timeline(
+            entity_id,
+            linked_data['card_swipes'], linked_data['cctv_faces'], linked_data['wifi_logs'],
+            linked_data['lab_bookings'], linked_data['text_notes'], linked_data['library_checkouts'],
+            entity_table, sd, ed, event_types_filter
         )
 
-        st.subheader(f"Timeline for entity: {entity_id}")
+        if timeline.empty:
+            st.info("No events found for the specified filters.")
+            return
+
+        st.markdown("---")
+        st.subheader("Timeline Table")
         st.dataframe(timeline)
 
-        st.subheader("Event Counts")
-        st.write(event_counts)
-
-        if inactivity_flag:
-            st.warning("Inactivity gap detected (>7 days).")
-
-        # Predictive monitoring
-        features, target, location_map = prepare_training_data(card_swipes, entity_id)
-        if not features.empty:
-            model, accuracy = train_predictive_model(features, target)
-            last_location = features['prev_location_enc'].iloc[-1]
-            last_time_delta = features['time_diff'].iloc[-1]
-            pred_loc = predict_next_location(model, last_location, last_time_delta, location_map)
-            explanation = explain_prediction(card_swipes, entity_id, pred_loc)
-            st.subheader("Next Predicted Location")
-            st.success(f"Next likely location: {pred_loc}")
-            st.info(f"Prediction Explanation: {explanation}")
+        st.markdown("---")
+        st.subheader("Event Counts Summary")
+        if event_counts:
+            counts_df = pd.DataFrame.from_dict(event_counts, orient='index', columns=['Count']).sort_values('Count', ascending=False)
+            st.bar_chart(counts_df)
+            with st.expander("See event counts details"):
+                st.table(counts_df)
         else:
-            st.info("Insufficient data for prediction.")
+            st.write("No event counts available.")
 
-        st.subheader("Detected Anomalies")
+        st.markdown("---")
+        if inactivity_flag:
+            st.warning("⚠️ Inactivity gap detected (>7 days)")
+
+        # Removed Next Predicted Location Section as requested
+
+        st.markdown("---")
+        st.subheader(f"Detected Anomalies ({len(anomalies)})")
         if anomalies:
             for anomaly in anomalies:
                 st.error(anomaly)
         else:
-            st.info("No anomalies detected in timeline.")
+            st.write("No anomalies detected.")
 
-        # Download timeline CSV
+        st.markdown("---")
         csv = timeline.to_csv(index=False).encode('utf-8')
-        st.download_button(
-            label="Download timeline as CSV",
-            data=csv,
-            file_name=f"timeline_{entity_id}.csv",
-            mime='text/csv'
-        )
+        st.download_button("Download timeline as CSV", csv, file_name=f"timeline_{entity_id}.csv", mime="text/csv")
 
         fig = visualize_timeline(timeline, entity_id)
         if fig:
-            st.subheader("Interactive Timeline Visualization")
+            st.markdown("---")
+            st.subheader("Timeline Visualization")
             st.plotly_chart(fig, use_container_width=True)
         else:
             st.info("No events available for visualization.")
