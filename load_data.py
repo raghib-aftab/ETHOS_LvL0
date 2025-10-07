@@ -13,7 +13,7 @@ if __name__ == "__main__":
         'student-or-staff-profiles.csv',
         'campus_card_swipes.csv',
         'cctv_frames.csv',
-        'face embeddings.csv',
+        'face_embeddings.csv',
         'free_text_notes.csv',
         'lab_bookings.csv',
         'library_checkouts.csv',
