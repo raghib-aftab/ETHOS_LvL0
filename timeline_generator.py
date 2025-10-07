@@ -12,7 +12,7 @@ def load_or_upload_csv(name, path):
         st.warning(f"{name} not found. Please upload it.")
         return pd.DataFrame()
 
-def load_face_embeddings(drive_folder_id='1510SDJg3pohua-0sP6ZMbmJj4RGKZQdw'):
+def load_face_embeddings(drive_folder_id='1WULyGab7yPvci-sTMD13PAxpqPPgjzWy'):
     import gdown
     local_path = 'face_embeddings.csv'
     if not os.path.exists(local_path):
