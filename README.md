@@ -36,10 +36,19 @@ The system addresses the core objectives of the challenge:
 
 ---
 
-## ⚙️ Tech Stack
-- **Language:** Python 3.10+  
-- **Framework:** Streamlit  
-- **Libraries:** Pandas, Plotly, Collections, OS  
+⚙️ Tech Stack
+	•	Language: Python 3.10+
+	•	Framework: Streamlit (for interactive web app UI)
+	•	Core Libraries:
+	•	Pandas (data processing and manipulation)
+	•	Plotly (interactive visualizations and charts)
+	•	Collections (data structures like  defaultdict )
+	•	OS (file/directory management and path handling)
+	•	Tabulate (for formatted table display during development/debugging)
+	•	Data Handling:
+	•	Openpyxl (optional, for Excel file reading/writing support)
+	•	Python-docx (optional, for Word report generation)
+	•	fpdf (optional, for PDF report generation)
 
 ---
 
