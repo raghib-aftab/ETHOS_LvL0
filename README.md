@@ -1,6 +1,17 @@
 # 🏫 Campus Entity Resolution & Security Monitoring System  
 *A Cross-Source Analytics Platform for Campus Activity Intelligence*  
 
+## 🚀 Live Demo
+
+Experience the deployed application here:
+👉 Campus Entity Resolution & Security Monitoring System
+
+This live Streamlit deployment allows users to explore unified campus data, generate activity timelines, detect anomalies, and visualize entity movements in real time — all through an interactive and intuitive web interface.
+
+| Note: Valid entity_id entries range from E100000 to E106999.
+
+---
+
 ## 🔍 Overview  
 Modern campuses generate enormous amounts of operational data — from Wi-Fi logs and card swipes to CCTV frames, library checkouts, lab bookings, and free-text notes.  
 However, these datasets often remain siloed, making it difficult for administrators and security teams to monitor activities, ensure safety, or detect anomalies.  
