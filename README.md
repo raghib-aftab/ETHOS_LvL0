@@ -46,21 +46,26 @@ The system addresses the core objectives of the challenge:
 ## 📂 Repository Structure
 ```
 │
-├── app.py                      # Streamlit interface for the entire system
-├── timeline_generator.py        # Core logic for timeline, anomaly detection & prediction
-├── cross_source_linking.py      # Multi-source data linking
-├── entity_resolution.py         # Unification of entity identities
-├── load_data.py                 # Data ingestion & validation
-├── requirements.txt             # Dependencies
+├── src/
+│   ├── app.py
+│   ├── timeline_generator.py
+│   ├── cross_source_linking.py
+│   ├── entity_resolution.py
+│   └── load_data.py
 │
-├── campus_card_swipes.csv
-├── cctv_frames.csv
-├── face_embeddings.csv
-├── free_text_notes.csv
-├── lab_bookings.csv
-├── library_checkouts.csv
-├── student-or-staff-profiles.csv
-└── wifi_associations_logs.csv
+├── data/
+│   ├── campus_card_swipes.csv
+│   ├── cctv_frames.csv
+│   ├── face_embeddings.csv
+│   ├── free_text_notes.csv
+│   ├── lab_bookings.csv
+│   ├── library_checkouts.csv
+│   ├── student-or-staff-profiles.csv
+│   └── wifi_associations_logs.csv
+│
+├── requirements.txt
+└── README.md
+
 ```
 
 ---
