@@ -37,18 +37,42 @@ The system addresses the core objectives of the challenge:
 ---
 
 ⚙️ Tech Stack
-	•	Language: Python 3.10+
-	•	Framework: Streamlit (for interactive web app UI)
-	•	Core Libraries:
-	•	Pandas (data processing and manipulation)
-	•	Plotly (interactive visualizations and charts)
-	•	Collections (data structures like  defaultdict )
-	•	OS (file/directory management and path handling)
-	•	Tabulate (formatted table display useful during development/debugging)
-	•	Data Handling:
-	•	Openpyxl (optional, for Excel file reading/writing support)
-	•	Python-docx (optional, for Word report generation)
-	•	fpdf (optional, for PDF report generation)
+
+Language: Python 3.10+
+
+Framework: Streamlit (for interactive web-based UI)
+
+🧩 Core Libraries
+
+Pandas – Data processing, cleaning, and multi-source integration
+
+Plotly – Interactive timeline visualizations and charts
+
+Collections – Data structures like defaultdict for transition tracking
+
+OS – File and directory path management
+
+Tabulate (optional) – Neat table formatting during debugging
+
+💾 Data Handling & Export
+
+Openpyxl (optional) – Excel file support
+
+Python-docx (optional) – Word report generation
+
+fpdf (optional) – PDF export support
+
+🌐 Deployment & Environment
+
+Streamlit Cloud / Localhost – One-click deployment
+
+GitHub – Version control and project hosting
+
+requirements.txt – Dependency management
+
+📤 Download Feature
+
+Implemented via Streamlit’s st.download_button() to export timelines as downloadable CSVs directly from the app.
 ---
 
 ## 📂 Repository Structure
@@ -90,11 +114,6 @@ pip install -r requirements.txt
 
 # Run the app
 streamlit run app.py
-```
-
-### ☁️ Streamlit Cloud
-Simply upload this repository to Streamlit Cloud.  
-The flat directory structure ensures seamless deployment — no `src/` or `data/` folders required.
 
 ---
 
@@ -103,18 +122,6 @@ The flat directory structure ensures seamless deployment — no `src/` or `data/
 - **Anomaly Detection:** Automatically highlights inactivity gaps, unseen locations, and unusual event counts.  
 - **Predictive Insights:** Estimates the next likely location of a person or device based on recent movement history.  
 - **Data Export:** Download generated timelines as CSVs directly from the UI.
-
----
-
-## 🧩 Evaluation Mapping
-| Challenge Criterion | Implementation |
-|----------------------|----------------|
-| **Entity Resolution Accuracy (25%)** | Unified entity table mapping `entity_id`, `card_id`, `device_hash`, and `face_id`. |
-| **Cross-Source Linking (25%)** | Consistent joining of all structured datasets via shared keys. |
-| **Timeline Generation (20%)** | Complete event stream aggregation and visualization per entity. |
-| **Predictive Monitoring (15%)** | Transition matrix–based location prediction. |
-| **Security Dashboard (10%)** | User-friendly Streamlit UI for timeline and anomaly visualization. |
-| **Robustness & Privacy (5%)** | Handles missing identifiers and supports explainable insights without personal data exposure. |
 
 ---
 
@@ -127,16 +134,10 @@ All processing and visualization components are built for research, security ana
 ## 🏁 Conclusion
 This project demonstrates a **deployable, modular, and privacy-aware campus monitoring system** — seamlessly integrating data fusion, anomaly detection, and explainable prediction through an accessible dashboard.
 
-It reflects the **Product Development Track** goals of *Ethos Hack 2025 by Saptang Labs*:  
-> “Design a system that bridges campus data silos into actionable, explainable intelligence.”
-
 ---
 
 ## 👥 Contributors
-- **Raghib Aftab** – System Design, Data Fusion, Visualization  
-- (Add any teammates or mentors here)
-
----
-
-## 🧾 License
-This project is released under the **MIT License**.
+- **Vaibhav Gupta** – Cross-source linking, Timeline generation and Analytics.
+- **Roshan Kumar Sahu** – Data loading and Preparation.
+- **Raghib Aftab** – Streamlit UI and Integration.
+- **Husendra Kumar** – Entity resolution.  
