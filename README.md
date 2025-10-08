@@ -52,15 +52,15 @@ Collections – Data structures like defaultdict for transition tracking
 
 OS – File and directory path management
 
-Tabulate (optional) – Neat table formatting during debugging
+Tabulate – Neat table formatting during debugging
 
 💾 Data Handling & Export
 
-Openpyxl (optional) – Excel file support
+Openpyxl – Excel file support
 
-Python-docx (optional) – Word report generation
+Python-docx – Word report generation
 
-fpdf (optional) – PDF export support
+fpdf – PDF export support
 
 🌐 Deployment & Environment
 
@@ -76,7 +76,7 @@ Implemented via Streamlit’s st.download_button() to export timelines as downlo
 ---
 
 ## 📂 Repository Structure
-```
+---
 │
 ├── src/
 │   ├── app.py
