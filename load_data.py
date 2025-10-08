@@ -3,7 +3,7 @@ import pandas as pd
 
 def load_dataset(file_name):
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    path = os.path.join(base_dir, file_name)
+    path = os.path.join(base_dir, 'data', file_name)
     print(f"Loading {file_name} from {path}")
     df = pd.read_csv(path)
     print(df.info())
