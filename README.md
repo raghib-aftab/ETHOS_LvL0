@@ -4,7 +4,7 @@
 ## 🚀 Live Demo
 
 Experience the deployed application here:
-👉 Campus Entity Resolution & Security Monitoring System
+Campus Entity Resolution & Security Monitoring System
 
 This live Streamlit deployment allows users to explore unified campus data, generate activity timelines, detect anomalies, and visualize entity movements in real time — all through an interactive and intuitive web interface.
 
