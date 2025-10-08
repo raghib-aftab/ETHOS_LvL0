@@ -44,12 +44,11 @@ The system addresses the core objectives of the challenge:
 	•	Plotly (interactive visualizations and charts)
 	•	Collections (data structures like  defaultdict )
 	•	OS (file/directory management and path handling)
-	•	Tabulate (for formatted table display during development/debugging)
+	•	Tabulate (formatted table display useful during development/debugging)
 	•	Data Handling:
 	•	Openpyxl (optional, for Excel file reading/writing support)
 	•	Python-docx (optional, for Word report generation)
 	•	fpdf (optional, for PDF report generation)
-
 ---
 
 ## 📂 Repository Structure
