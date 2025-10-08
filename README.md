@@ -8,7 +8,7 @@ Experience the deployed application here:
 
 This live Streamlit deployment allows users to explore unified campus data, generate activity timelines, detect anomalies, and visualize entity movements in real time — all through an interactive and intuitive web interface.
 
-| Note: Valid entity_id entries range from E100000 to E106999.
+| Note: Valid Entity_Id entries range from E100000 to E106999.
 
 ---
 
